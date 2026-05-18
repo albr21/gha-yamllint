@@ -29,12 +29,14 @@ if [ -n "$config" ] && [ ! -f "$config" ]; then
   exit 1
 fi
 
+set +e
 if [ -n "$config" ]; then
   yamllint -f parsable -c "$config" $paths > yamllint-output.txt 2>&1
 else
   yamllint -f parsable $paths > yamllint-output.txt 2>&1
 fi
 exit_code=$?
+set -e
 
 echo "exit_code=$exit_code" >> "$GITHUB_OUTPUT"
 
