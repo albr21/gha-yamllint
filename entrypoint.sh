@@ -7,7 +7,7 @@ paths="${INPUT_PATHS:-}"
 config="$(printenv 'INPUT_CONFIG-PATH' || echo '')"
 fail_on_error="$(printenv 'INPUT_FAIL-ON-ERROR' || echo 'true')"
 
-fail_on_error="${fail_on_error,,}"
+fail_on_error="$(echo "$fail_on_error" | tr '[:upper:]' '[:lower:]')"
 if [ "$fail_on_error" != "true" ]; then
   fail_on_error=false
 else
