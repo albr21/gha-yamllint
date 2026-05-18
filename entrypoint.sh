@@ -3,7 +3,6 @@ set -euo pipefail
 
 echo "🔍 Starting yamllint..."
 
-# Inputs GitHub Actions
 paths="${INPUT_PATHS:-}"
 config="${INPUT_CONFIG_PATH:-}"
 fail_on_error="${INPUT_FAIL_ON_ERROR:-true}"
@@ -15,6 +14,13 @@ fi
 
 echo "Linting paths:"
 echo "$paths"
+echo "Using config: ${config:-default}"
+echo "Fail on error: $fail_on_error"
+
+if [ -n "$config" ] && [ ! -f "$config" ]; then
+  echo "::error::Config file '$config' not found"
+  exit 1
+fi
 
 # Build command safely as array (POSIX-safe workaround)
 set -- yamllint -f parsable
