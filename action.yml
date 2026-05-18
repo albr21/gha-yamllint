@@ -1,0 +1,24 @@
+name: gha-yamllint
+description: |-
+  GitHub Action to run yamllint, analyzing your YAML files for potential errors and style issues.
+
+author: albr21
+branding:
+  icon: check-square
+  color: green
+
+inputs:
+  paths:
+    description: Paths to the YAML files to lint
+    required: true
+  config-path:
+    description: Optional path to a custom yamllint configuration file
+    required: false
+  fail-on-error:
+    description: Whether to fail the action if yamllint finds errors
+    required: false
+    default: 'true'
+
+runs:
+  using: docker
+  image: Dockerfile
