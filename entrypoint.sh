@@ -4,8 +4,15 @@ set -euo pipefail
 echo "🔍 Starting yamllint..."
 
 paths="${INPUT_PATHS:-}"
-config="${INPUT_CONFIG_PATH:-}"
-fail_on_error="${INPUT_FAIL_ON_ERROR:-true}"
+config="$(printenv 'INPUT_CONFIG-PATH' || echo '')"
+fail_on_error="$(printenv 'INPUT_FAIL-ON-ERROR' || echo 'true')"
+
+fail_on_error="${fail_on_error,,}"
+if [ "$fail_on_error" != "true" ]; then
+  fail_on_error=false
+else
+  fail_on_error=true
+fi
 
 if [ -z "$paths" ]; then
   echo "::error::No paths provided to yamllint"
