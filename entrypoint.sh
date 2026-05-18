@@ -1,5 +1,5 @@
-#!/bin/bash
-set -euo pipefail
+#!/bin/sh
+set -eu
 
 echo "🔍 Starting yamllint..."
 
@@ -29,22 +29,12 @@ if [ -n "$config" ] && [ ! -f "$config" ]; then
   exit 1
 fi
 
-# Build command safely as array (POSIX-safe workaround)
-set -- yamllint -f parsable
-
 if [ -n "$config" ]; then
-  set -- "$@" -c "$config"
+  yamllint -f parsable -c "$config" $paths > yamllint-output.txt 2>&1
+else
+  yamllint -f parsable $paths > yamllint-output.txt 2>&1
 fi
-
-# Expand paths (support multiple space-separated inputs)
-for p in $paths; do
-  set -- "$@" "$p"
-done
-
-echo "Running: $*"
-
-"$@" 2>&1 | tee yamllint-output.txt
-exit_code=${PIPESTATUS[0]}
+exit_code=$?
 
 echo "exit_code=$exit_code" >> "$GITHUB_OUTPUT"
 
