@@ -1,8 +1,11 @@
-name: <project-name>
+name: gha-yamllint
 description: |-
-  <project-description>
-version: 0.0.0
+  GitHub Action to run yamllint, analyzing your YAML files for potential errors and style issues.
+version: 1.0.0
 releases:
+  - version: 1.0.0
+    changes:
+      - Initial release
   - version: 0.0.0
     changes:
       - Under development

@@ -1,10 +1,20 @@
-# <project-name>
+# gha-yamllint
 
-<!-- A brief description of the project. -->
+GitHub Action to run yamllint, analyzing your YAML files for potential errors and style issues.
 
 ## Usage
 
-<!-- Provide instructions on how to use the project, including code examples if applicable. -->
+```yaml
+steps:
+  - name: Run yamllint
+    uses: albr21/gha-yamllint@1.0.0
+    with:
+      paths:
+        - .github/workflows
+        - .github/actions
+      config-path: .yamllint.yaml
+      fail-on-error: 'true'
+```
 
 ## Contributing
 
